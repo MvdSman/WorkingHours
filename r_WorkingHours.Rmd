@@ -12,6 +12,7 @@ library(dplyr)
 library(tidyr)
 library(data.table)
 library(ggplot2)
+library(corrgram)
 theme_set(theme_bw())
 ```
 
@@ -62,3 +63,14 @@ ggplot(data, aes(x=Distance, y=Minutes, group=Cleaning.type)) +
 ```
 
 > Because of the density of some ranges, the errorbars (&#177;1SD) were chosen for a cleaner plot. This suggests a clear difference between the two cleaning types. The distance does not, however, show any significant differences in the time measured other than an increase in variance for the longer distances.
+
+## Correlation?
+
+Let's see if the correlation between Distance, Cleaning.type and Minutes is large enough.
+
+```{r corrgram, echo=FALSE}
+corrgram(data, order=FALSE, lower.panel=panel.conf, upper.panel=panel.pts,
+         diag.panel=panel.density, main="Correlation matrix")
+```
+
+> The correlation table shows that the average cleaning time per room per type (Mean_room) is highly correlated with the average cleaning time per type (Mean_Type), indicating that the distance does not influence the cleaning time for a certain type. The low correlation of Distance with Minutes shows no relation between these two variables: the cleaning time is not influenced by the distance of a room.
